@@ -2,13 +2,15 @@ import json
 import asyncio
 import asyncpg
 from aiohttp import ClientSession, web
+from config import DATABASE, DB_USER, DB_PASSWORD, DB_HOST, DB_PORT, TABLE
+from config import WEB_HOST, WEB_PORT
 
 app_storage = {}
 
 
 async def save_to_db(pool, product):
     query = (
-        'INSERT INTO products' 
+        f'INSERT INTO {TABLE}'
         '(id, title, description, price, discountpercentage, '
         'rating, stock, brand, category, thumbnail, images) '
         'VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)'
@@ -62,17 +64,17 @@ async def init():
     async with app_storage['session']:
         app = web.Application()
         app['pool'] = await asyncpg.create_pool(
-            database='postgres',
-            user='postgres',
-            password='postgres',
-            host='127.0.0.1',
-            port=5432
+            database=DATABASE,
+            user=DB_USER,
+            password=DB_PASSWORD,
+            host=DB_HOST,
+            port=DB_PORT
         )
         app.add_routes([web.get('/', handle)])
 
         runner = web.AppRunner(app)
         await runner.setup()
-        site = web.TCPSite(runner, 'localhost', 8080)
+        site = web.TCPSite(runner, WEB_HOST, WEB_PORT)
         await site.start()
         await asyncio.Event().wait()
 

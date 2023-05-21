@@ -5,7 +5,7 @@ In the address bar, it is passed as the "count " parameter, the count is the amo
 - The name of the "postgres" base.
 - Host:port - 127.0.0.1:5432.
 - User/password - postgres/postgres.
-- Table: "Products".
+- Table: "products".
 - Column in table: 
   - ('id', INT),
   - ('title', TEXT),
@@ -20,7 +20,16 @@ In the address bar, it is passed as the "count " parameter, the count is the amo
   - ('images', TEXT)
 
 Use "docker run --network=host -p 8080:8080 docker-web-server" to start the container.
-## Example
+## Example .env
+DATABASE = 'postgres'\
+DB_USER = 'postgres'\
+PASSWORD = '11'\
+DB_HOST = '127.0.0.1'\
+DB_PORT = 5432\
+WEB_HOST = 'localhost'\
+WEB_PORT = 8080\
+TABLE = 'products'\
+## Example request
 http :// localhost : 8080 / ? count = Any number
 
 http://localhost:8080/?count=3
