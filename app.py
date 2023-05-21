@@ -65,8 +65,8 @@ async def init():
             database='postgres',
             user='postgres',
             password='postgres',
-            host='postgres',
-            port=3306
+            host='127.0.0.1',
+            port=5432
         )
         app.add_routes([web.get('/', handle)])
 
