@@ -2,10 +2,6 @@
 In the address bar, it is passed as the "count " parameter, the count is the amount of resources that you need to request from the source and save in the database. The server executes requests asynchronously and asynchronously writes responses to the database.
 ## Installation
 - You must have a PostgreSQL.
-- The name of the "postgres" base.
-- Host:port - 127.0.0.1:5432.
-- User/password - postgres/postgres.
-- Table: "products".
 - Column in table: 
   - ('id', INT),
   - ('title', TEXT),
