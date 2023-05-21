@@ -22,4 +22,5 @@ In the address bar, it is passed as the "count " parameter, the count is the amo
 Use "docker run --network=host -p 8080:8080 docker-web-server" to start the container.
 ## Example
 http :// localhost : 8080 / ? count = Any number
+
 http://localhost:8080/?count=3
