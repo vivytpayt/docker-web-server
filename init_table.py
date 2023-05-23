@@ -1,6 +1,8 @@
 import time
+
 from sqlalchemy import create_engine
 from sqlalchemy import Table, Column, MetaData, INT, BIGINT, FLOAT, TEXT
+
 from config import DATABASE, TABLE, DB_USER, DB_PASSWORD, DB_HOST, DB_PORT
 
 

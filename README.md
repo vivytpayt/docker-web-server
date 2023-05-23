@@ -15,19 +15,10 @@ Responses are stored in the "products" table.
   - ('thumbnail', TEXT),
   - ('images', TEXT)
 ## Installation
-Before starting, redefine the ports to the ones you need in the file "docker-compose.yaml".
+Before starting, redefine the database, ports to the ones you need in the “docker-compose.yaml” file.
 
 Use "docker-compose up --build --force-recreate -d
 " to start the containers.
-## Example .env
-DATABASE = 'postgres'\
-DB_USER = 'postgres'\
-PASSWORD = 'postgres'\
-DB_HOST = 'database'\
-DB_PORT = 5432\
-WEB_HOST = '0.0.0.0'\
-WEB_PORT = 8080\
-TABLE = 'products'\
 ## Example request
 http :// 0.0.0.0 : 8081 / ? count = Any number
 

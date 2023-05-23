@@ -1,7 +1,9 @@
 import json
 import asyncio
+
 import asyncpg
 from aiohttp import ClientSession, web
+
 from config import DATABASE, DB_USER, DB_PASSWORD, DB_HOST, DB_PORT, TABLE
 from config import WEB_HOST, WEB_PORT
 
@@ -16,12 +18,11 @@ async def save_to_db(pool, product):
         'VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)'
     )
     async with pool.acquire() as connection:
-        async with connection.transaction():
-            await connection.execute(
-                query,
-                *tuple(product.values())[:-1],
-                json.dumps(product['images'])
-            )
+        await connection.execute(
+            query,
+            *tuple(product.values())[:-1],
+            json.dumps(product['images'])
+        )
 
 
 async def get_products(number):
@@ -38,14 +39,14 @@ async def handle(request):
         count = int(request.rel_url.query['count'])
     except ValueError:
         result = 'Count of requests must be a number'
-        return web.Response(text=json.dumps(result))
+        return web.Response(text=result)
 
     if count <= 0:
-        result = 'Count of requests must be more than 0 and ' \
-                 'less than 100. You entered: {}'.format(count)
+        result = f'Count of requests must be more than 0 and ' \
+                  f'less than 100. You entered: {count}'
     elif count > 100:
-        result = 'Count of requests must be more than 0 and ' \
-                 'less than 100. You entered: {}'.format(count)
+        result = f'Count of requests must be more than 0 and ' \
+                 f'less than 100. You entered: {count}'
     else:
         for number in range(1, count + 1):
             tasks.append(asyncio.create_task(get_products(number)))
@@ -55,7 +56,7 @@ async def handle(request):
             await save_to_db(pool, product)
         result = 'Done'
 
-    return web.Response(text=json.dumps(result))
+    return web.Response(text=result)
 
 
 async def init():
