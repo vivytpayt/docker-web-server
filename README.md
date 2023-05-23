@@ -1,7 +1,7 @@
-# docker-web-server
-In the address bar, it is passed as the "count " parameter, the count is the amount of resources that you need to request from the source and save in the database. The server executes requests asynchronously and asynchronously writes responses to the database.
-## Installation
-- You must have a PostgreSQL.
+# docker-compose-web-server
+In the address bar, passed the "count " parameter, the count is the amount of resources that you need to request from the source and save in the database. The server executes requests asynchronously and asynchronously writes responses to the database.\
+Requests are sent to https://dummyjson.com/products/ . \
+Responses are stored in the "products" table.
 - Column in table: 
   - ('id', INT),
   - ('title', TEXT),
@@ -14,18 +14,21 @@ In the address bar, it is passed as the "count " parameter, the count is the amo
   - ('category', TEXT),
   - ('thumbnail', TEXT),
   - ('images', TEXT)
+## Installation
+Before starting, redefine the ports to the ones you need in the file "docker-compose.yaml".
 
-Use "docker run --network=host -p 8080:8080 docker-web-server" to start the container.
+Use "docker-compose up --build --force-recreate -d
+" to start the containers.
 ## Example .env
 DATABASE = 'postgres'\
 DB_USER = 'postgres'\
-PASSWORD = '11'\
-DB_HOST = '127.0.0.1'\
+PASSWORD = 'postgres'\
+DB_HOST = 'database'\
 DB_PORT = 5432\
-WEB_HOST = 'localhost'\
+WEB_HOST = '0.0.0.0'\
 WEB_PORT = 8080\
 TABLE = 'products'\
 ## Example request
-http :// localhost : 8080 / ? count = Any number
+http :// 0.0.0.0 : 8081 / ? count = Any number
 
-http://localhost:8080/?count=3
+http://0.0.0.0:8081/?count=3
